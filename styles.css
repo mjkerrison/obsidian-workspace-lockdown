@@ -1,0 +1,4 @@
+/* Disable pin icon clicks when protection is enabled */
+body.workspace-lockdown-pin-protection .workspace-tab-header-status-icon.mod-pinned {
+	pointer-events: none;
+}

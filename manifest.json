@@ -1,0 +1,9 @@
+{
+	"id": "workspace-lockdown",
+	"name": "Workspace Lockdown",
+	"version": "1.0.0",
+	"minAppVersion": "1.0.0",
+	"description": "Prevent accidental workspace changes: close tabs only in main pane, protect pin icons from misclicks.",
+	"author": "mjk",
+	"isDesktopOnly": false
+}
