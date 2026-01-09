@@ -29,7 +29,8 @@ __export(main_exports, {
 module.exports = __toCommonJS(main_exports);
 var import_obsidian = require("obsidian");
 var DEFAULT_SETTINGS = {
-  pinProtectionEnabled: true
+  pinProtectionEnabled: true,
+  suppressedViewTypes: ["all-properties"]
 };
 var PIN_PROTECTION_CLASS = "workspace-lockdown-pin-protection";
 var WorkspaceLockdownPlugin = class extends import_obsidian.Plugin {
@@ -46,7 +47,21 @@ var WorkspaceLockdownPlugin = class extends import_obsidian.Plugin {
       }
     });
     this.updatePinProtection();
+    this.app.workspace.onLayoutReady(() => {
+      this.closeSuppressedViews();
+    });
     this.addSettingTab(new WorkspaceLockdownSettingTab(this.app, this));
+  }
+  closeSuppressedViews() {
+    if (this.settings.suppressedViewTypes.length === 0)
+      return;
+    this.app.workspace.iterateAllLeaves((leaf) => {
+      var _a;
+      const viewType = (_a = leaf.view) == null ? void 0 : _a.getViewType();
+      if (viewType && this.settings.suppressedViewTypes.includes(viewType)) {
+        leaf.detach();
+      }
+    });
   }
   onunload() {
     document.body.removeClass(PIN_PROTECTION_CLASS);
@@ -77,6 +92,10 @@ var WorkspaceLockdownSettingTab = class extends import_obsidian.PluginSettingTab
       this.plugin.settings.pinProtectionEnabled = value;
       await this.plugin.saveSettings();
       this.plugin.updatePinProtection();
+    }));
+    new import_obsidian.Setting(containerEl).setName("Suppressed view types").setDesc('Comma-separated list of view types to auto-close on startup (e.g., "all-properties, outgoing-link, backlink").').addText((text) => text.setPlaceholder("all-properties").setValue(this.plugin.settings.suppressedViewTypes.join(", ")).onChange(async (value) => {
+      this.plugin.settings.suppressedViewTypes = value.split(",").map((s) => s.trim()).filter((s) => s.length > 0);
+      await this.plugin.saveSettings();
     }));
   }
 };
