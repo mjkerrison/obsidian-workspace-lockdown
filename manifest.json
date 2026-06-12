@@ -1,7 +1,7 @@
 {
 	"id": "workspace-lockdown",
 	"name": "Workspace Lockdown",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"minAppVersion": "1.0.0",
 	"description": "Prevent accidental workspace changes: suppress unwanted sidebar panes, protect pin icons, and close tabs only in the main pane.",
 	"author": "mjk",

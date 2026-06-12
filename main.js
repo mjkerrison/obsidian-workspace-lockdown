@@ -46,6 +46,12 @@ var WorkspaceLockdownPlugin = class extends import_obsidian.Plugin {
         }
       }
     });
+    this.addCommand({
+      id: "do-nothing",
+      name: "Do nothing (shadow Electron shortcut)",
+      callback: () => {
+      }
+    });
     this.updatePinProtection();
     this.app.workspace.onLayoutReady(() => {
       this.closeSuppressedViews();

@@ -30,6 +30,15 @@ export default class WorkspaceLockdownPlugin extends Plugin {
 			}
 		});
 
+		// No-op command — bind unwanted Electron shortcuts (e.g. Ctrl+-) to this
+		// to shadow them. Obsidian's hotkey handler fires first and swallows the
+		// event before Electron's accelerator sees it.
+		this.addCommand({
+			id: 'do-nothing',
+			name: 'Do nothing (shadow Electron shortcut)',
+			callback: () => {}
+		});
+
 		// Apply pin protection on load
 		this.updatePinProtection();
 
