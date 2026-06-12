@@ -28,6 +28,14 @@ A command that closes the active tab only in the main pane, leaving sidebar tabs
 
 Access via Command Palette: **Workspace Lockdown: Close tab in main pane**
 
+### Shadow Electron Shortcuts
+
+Some keyboard shortcuts (e.g. `Ctrl+-` for zoom out, `Ctrl+0` for reset zoom, `Ctrl+Shift+I` for devtools) are handled by Electron itself and fire even when Obsidian has no command bound to them. The result: surprise zoom changes that bork your carefully-tuned layout.
+
+This plugin exposes a no-op command you can bind to those keystrokes. When a hotkey is bound to an Obsidian command, Obsidian's handler fires first and swallows the event before Electron's accelerator sees it.
+
+Bind via Settings > Hotkeys > search for **Workspace Lockdown: Do nothing (shadow Electron shortcut)** and assign the keystroke you want to neutralise.
+
 ## Installation
 
 ### Manual Installation
